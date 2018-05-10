@@ -30,6 +30,9 @@ struct Symbol {
     import std.demangle;
     import std.algorithm, std.range;
     import std.conv : to;
+    if(!line.canFind("(") || ! line.canFind(")"))
+      return "";
+
     dchar[] symbolWith0x = line.retro().find(")").dropOne().until("(").array().retro().array();
     if (symbolWith0x.length == 0) return "";
     else return demangle(symbolWith0x.until("+").to!string());
